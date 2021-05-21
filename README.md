@@ -4,6 +4,13 @@ Free as in freedom archive.
 
 The last place on earth for dead repositories.
 
+# Howto
+
+* `cd` into current year
+* `git clone <url of the repository>`
+* `rm -fr <name of the repository>/.git`
+* add entry to this readme
+
 # Years
 
 * [2021](2021)
