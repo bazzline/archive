@@ -1,0 +1,29 @@
+{
+    "description": "zend framework 2 console helper module",
+    "keywords": ["zf2", "zend framework 2", "module", "php", "console", "helper", "signal handling", "posix", "debian 6 backport"],
+    "license": "LGPLv3",
+    "name": "net_bazzline/zf_console_helper_debian_6_backport",
+    "type": "library",
+    "authors": [
+        {
+            "email": "artodeto@bazzline.net",
+            "homepage": "https://artodeto.bazzline.et",
+            "name": "Stev Leibelt",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "net_bazzline/zf_console_helper": "1.2.*",
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "ZfConsoleHelperDebian6Backport": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}

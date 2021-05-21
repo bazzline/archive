@@ -1,0 +1,35 @@
+{
+    "description": "free as in freedom zend framework 2 locator generator module for debian 6",
+    "keywords": ["zf2", "zend framework 2", "module", "php", "locator", "configuration", "generator", "propel", "schema.xml", "array", "debian 6 backport", "lgpl", "free as in freedom"],
+    "license": "LGPLv3",
+    "name": "net_bazzline/zf_locator_generator_debian_6_backport",
+    "type": "library",
+    "authors": [
+        {
+            "email": "artodeto@bazzline.net",
+            "homepage": "https://artodeto.bazzline.et",
+            "name": "Stev Leibelt",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "net_bazzline/php_component_locator_generator": "2.0.*",
+        "net_bazzline/zf_console_helper_debian_6_backport": "*",
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.2.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.4",
+        "phpunit/phpunit": "4.8.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "ZfLocatorGenerator": "src/",
+            "Test\\ZfLocatorGenerator": "test/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
