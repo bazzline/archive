@@ -86,7 +86,7 @@ The last place on earth for dead repositories.
 # Howto
 
 \`\`\`
-bash bin/archive_repository.sh \"<string: url to the repository>\"
+bash bin/archive_repository.sh "<string: url to the repository>"
 \`\`\`
 
 # Years
