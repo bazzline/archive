@@ -6,10 +6,9 @@ The last place on earth for dead repositories.
 
 # Howto
 
-* `cd` into current year
-* `git clone <url of the repository>`
-* `rm -fr <name of the repository>/.git`
-* add entry to this readme
+```
+bash bin/archive_repository.sh "<string: url to the repository>"
+```
 
 # Years
 

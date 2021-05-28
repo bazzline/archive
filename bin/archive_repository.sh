@@ -58,12 +58,41 @@ function _main ()
         return 1
     fi
 
-    echo "git clone \"${URL_TO_THE_REPOSITORY}\""
+    git clone "${URL_TO_THE_REPOSITORY}"
 
-    echo "rm -fr \"${NAME_OF_THE_REPOSITORY}/.git\""
+    rm -fr "${NAME_OF_THE_REPOSITORY}/.git"
 
-    echo "[${NAME_OF_THE_REPOSITORY}](${URL_TO_THE_REPOSITORY}) - archived ${CURRENT_DATE}" >> "${PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST}"
+    echo "  * [${NAME_OF_THE_REPOSITORY}](${URL_TO_THE_REPOSITORY}) - archived ${CURRENT_DATE}" >> "${PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST}"
     ##eo: repository download
+
+    ##bo: update readme
+    cd "${PATH_TO_THE_PROJECT_ROOT}"
+
+    cat >README.md<DELIM
+# Archive
+
+Free as in freedom archive.
+
+The last place on earth for dead repositories.
+
+# Howto
+
+```
+bash bin/archive_repository.sh "<string: url to the repository>"
+```
+
+# Years
+
+DELIM
+
+    #list content of path and grep for all with the 2 inside
+    for YEAR in $(ls | sort | grep 2);
+    do
+        echo "[${YEAR}](${YEAR})" >> README.md
+
+        cat "${YEAR}/.repository_file_list" | sort >> README.md
+    done
+    ##eo: update readme
 
     cd "${CURRENT_WORKING_DIRECTORY}"
 }
