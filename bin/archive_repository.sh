@@ -70,7 +70,7 @@ function _main ()
     cd "${PATH_TO_THE_PROJECT_ROOT}"
 
     [[ $BE_VERBOSE -eq 1 ]] && echo ":: Adding path to the repository file list."
-    echo "    * [${NAME_OF_THE_REPOSITORY}](${URL_TO_THE_REPOSITORY}) - archived ${CURRENT_DATE}" >> "${PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST}"
+    echo "    * [${NAME_OF_THE_REPOSITORY}](${CURRENT_YEAR}/${NAME_OF_THE_REPOSITORY}) - archived ${CURRENT_DATE}" >> "${PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST}"
     ##eo: repository download
 
     ##bo: update readme
