@@ -1,0 +1,40 @@
+{
+    "name": "net_bazzline/php_component_event_handler",
+    "description": "This free as in freedom project aims to deliver a generic and clean php event handler component.",
+    "keywords": [
+        "php",
+        "psr",
+        "psr-4",
+        "event",
+        "handler",
+        "emit",
+        "dispatch",
+        "listener",
+        "database",
+        "runtime",
+        "bus",
+        "rest",
+        "lgpl",
+        "free as in freedom"
+    ],
+    "type": "library",
+    "minimum-stability": "dev",
+    "require": {
+        "net_bazzline/php_component_event": "^0.0.1",
+        "php": ">=5.3.3"
+    },
+    "license": "LGPL-3.0-only",
+    "authors": [
+        {
+            "name": "Stev Leibelt",
+            "email": "artodeto@bazzline.net",
+            "homepage": "https://artodeto.bazzline.net",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Net\\Bazzline\\Component\\EventHandler\\": "source/"
+        }
+    }
+}

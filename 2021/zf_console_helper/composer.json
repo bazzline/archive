@@ -1,0 +1,28 @@
+{
+    "description": "free as in freedom zend framework 2 console helper module",
+    "keywords": ["zf2", "zend framework 2", "module", "php", "console", "helper", "signal handling", "posix", "lgpl", "free as in freedom"],
+    "license": "LGPL-3.0-only",
+    "name": "net_bazzline/zf_console_helper",
+    "type": "library",
+    "authors": [
+        {
+            "email": "artodeto@bazzline.net",
+            "homepage": "https://artodeto.bazzline.et",
+            "name": "Stev Leibelt",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "~2.3||~2.4||~2.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "ZfConsoleHelper": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}

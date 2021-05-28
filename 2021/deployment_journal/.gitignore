@@ -1,0 +1,10 @@
+.idea
+.kdev4
+*.kdev4
+composer.lock
+config/autoload/local.php
+!data/cache/.gitkeep
+!data/journal/.gitkeep
+data/journal/*
+!data/log/.gitkeep
+vendor

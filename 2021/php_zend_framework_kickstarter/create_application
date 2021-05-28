@@ -1,0 +1,356 @@
+#!/usr/bin/env bash
+####
+# Simple script to automate the setup of a zend framework application.
+####
+# @author stev leibelt <artodeto@bazzline.net>
+# @since 2018-05-13
+####
+
+##begin of dependency
+CURRENT_DATE=$(date +'%y-%m-%d')
+CURRENT_WORKING_DIRECTORY=$(pwd);
+CURRENT_VERSION=1
+
+NAME_OF_ADD_NEW_MODULE_SCRIPT="add_new_module"
+NAME_OF_THE_CURRENT_SCRIPT=$(basename "${BASH_SOURCE[0]}");
+PATH_OF_THE_CURRENT_SCRIPT=$(cd $(dirname "${BASH_SOURCE[0]}"); pwd);
+
+PATH_OF_ADD_NEW_MODULE_SCRIPT="${PATH_OF_THE_CURRENT_SCRIPT}/${NAME_OF_ADD_NEW_MODULE_SCRIPT}"
+##end of dependency
+
+##begin of usage
+function print_usage_and_exit
+{
+    echo ":: Invalid amount of arguments supplied."
+    echo "   Usage: ${NAME_OF_THE_CURRENT_SCRIPT} <installation path>"
+    echo ""
+
+    exit 1;
+}
+##end of usage
+
+#begin of user input validation
+if [[ $# -lt 1 ]];
+then
+    print_usage_and_exit;
+fi
+
+PATH_TO_THE_NEW_APPLICATION="${1}"
+PATH_TO_THE_VERSION_FILE="${PATH_TO_THE_NEW_APPLICATION}/.net_bazzline_kickstarter_version"
+#end of user input validation
+
+##begin of installation path setup
+if [[ ! -d "${PATH_TO_THE_NEW_APPLICATION}" ]];
+then
+    mkdir -p "${PATH_TO_THE_NEW_APPLICATION}"
+fi
+
+cd "${PATH_TO_THE_NEW_APPLICATION}"
+
+if [[ -f "${PATH_TO_THE_VERSION_FILE}" ]];
+then
+    INSTALLED_VERSION=$(cat "${PATH_TO_THE_VERSION_FILE}")
+else
+    INSTALLED_VERSION=0
+fi
+##end of installation path setup
+
+##begin of basic structure
+if [[ ${INSTALLED_VERSION} -lt 1 ]];
+then
+    echo ":: Creating directories."
+
+    /usr/bin/env mkdir -p bin config/autoload data/{cache,log} module public tool vendor
+fi
+
+echo "   Installed version is >>${INSTALLED_VERSION}<<"
+echo "   Current version is >>${CURRENT_VERSION}<<"
+##end of basic structure
+
+##begin of creating files
+if [[ ${INSTALLED_VERSION} -lt 1 ]];
+then
+    echo ":: Creating files."
+
+    touch config/application.config.php config/autoload/local.php public/index.php .gitignore README.md CHANGELOG.md composer.json
+    touch data/log/.gitkeep data/cache/.gitkeep
+
+    cat > CHANGELOG.md <<DELIM
+# Change Log
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [Open]
+
+### To Add
+
+### To Change
+
+## [Unreleased]
+
+### Added
+
+### Changed
+DELIM
+
+    cat > config/application.config.php <<DELIM
+<?php
+/**
+ * @author ${NAME_OF_THE_CURRENT_SCRIPT}/${CURRENT_VERSION}
+ * @since ${CURRENT_DATE}
+ */
+
+\$listOfModule = [
+    //ordered by priority
+    //begin of zend modules
+    'Zend\Log',
+    'Zend\Mvc\Console',
+    'Zend\Router',
+    'Zend\Validator',
+    //end of zend modules
+
+    //begin of other third party modules
+    //end of other third party modules
+
+    //begin of application module
+    'Application'
+    //end of application module
+];
+
+//@see:
+//  https://github.com/zendframework/ZendSkeletonApplication/blob/master/config/application.config.php
+//  vendor/zendframework/zend-mvc/docs/book/services.md
+//  https://docs.zendframework.com/zend-modulemanager/
+//  https://framework.zend.com/manual/2.4/en/tutorials/config.advanced.html
+
+return [
+    'modules' => \$listOfModule,
+    // These are various options for the listeners attached to the ModuleManager
+    'module_listener_options' => [
+        // This should be an array of paths in which modules reside.
+        // If a string key is provided, the listener will consider that a module
+        // namespace, the value of that key the specific path to that module's
+        // Module class.
+        'module_paths' => [
+            './module',
+            './vendor',
+        ],
+        // An array of paths from which to glob configuration files after
+        // modules are loaded. These effectively override configuration
+        // provided by modules themselves. Paths may use GLOB_BRACE notation.
+        'config_glob_paths' => [
+            realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php',
+        ],
+        // Whether or not to enable a configuration cache.
+        // If enabled, the merged configuration will be cached and used in
+        // subsequent requests.
+        'config_cache_enabled' => false,    //set this to true on production
+        // The key used to create the configuration cache file name.
+        'config_cache_key' => 'application.config.cache',
+        // Whether or not to enable a module class map cache.
+        // If enabled, creates a module class map cache which will be used
+        // by in future requests, to reduce the autoloading process.
+        'module_map_cache_enabled' => false,    //set this to true on production
+        // The key used to create the class map cache file name.
+        'module_map_cache_key' => 'application.module.cache',
+        // The path in which to cache merged configuration.
+        'cache_dir' => 'data/cache/',
+        // Whether or not to enable modules dependency checking.
+        // Enabled by default, prevents usage of modules that depend on other modules
+        // that weren't loaded.
+        // 'check_dependencies' => true,
+    ],
+    // Used to create an own service manager. May contain one or more child arrays.
+    // 'service_listener_options' => [
+    //     [
+    //         'service_manager' => $stringServiceManagerName,
+    //         'config_key'      => $stringConfigKey,
+    //         'interface'       => $stringOptionalInterface,
+    //         'method'          => $stringRequiredMethodName,
+    //     ],
+    // ],
+    // Initial configuration with which to seed the ServiceManager.
+    // Should be compatible with Zend\ServiceManager\Config.
+    // 'service_manager' => [],
+];
+DELIM
+
+    cat > config/autoload/local.php <<DELIM
+<?php
+/**
+ * @author ${NAME_OF_THE_CURRENT_SCRIPT}/${CURRENT_VERSION}
+ * @since ${CURRENT_DATE}
+ */
+
+return [
+];
+DELIM
+
+    cat > public/index.php <<DELIM
+#!/usr/bin/env php
+<?php
+/**
+ * @author ${NAME_OF_THE_CURRENT_SCRIPT}/${CURRENT_VERSION}
+ * @since ${CURRENT_DATE}
+ */
+
+//setup autoloader
+include __DIR__ . '/../vendor/autoload.php';
+
+//setup and run zend framework application
+\$configuration = require __DIR__ . '/../config/application.config.php';
+Zend\Mvc\Application::init(\$configuration)->run();
+DELIM
+
+    PROJECT_DESCRIPTION='some description'
+    PROJECT_NAME='my_project'
+    VENDOR_NAME='my_company'
+
+    cat > composer.json <<DELIM
+    {
+    "name": "${VENDOR_NAME}/${PROJECT_NAME}",
+    "description": "${PROJECT_DESCRIPTION}",
+    "type": "library",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "your.name@your.company"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "zendframework/zend-log": "^2.10@dev",
+        "zendframework/zend-mvc-console": "^1.2@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\\\": "module/Application/src/"
+        }
+    }
+}
+DELIM
+
+    cat > .gitignore <<DELIM
+####
+# @author ${NAME_OF_THE_CURRENT_SCRIPT}/${CURRENT_VERSION}
+# @since ${CURRENT_DATE}
+####
+.idea
+composer.lock
+!data/cache/.gitkeep
+!data/log/.gitkeep
+vendor
+DELIM
+
+    cp "${PATH_OF_ADD_NEW_MODULE_SCRIPT}" bin/
+
+    chmod +x public/index.php
+fi
+##end of creating files
+
+##begin of downloading composer
+echo ":: Downloading composer.phar."
+
+if [[ -f /usr/bin/wget ]];
+then
+    wget https://getcomposer.org/composer.phar
+elif [[ -f /usr/bin/curl ]];
+then
+    curl -O https://getcomposer.org/composer.phar
+else
+    echo ":: No curl or wget available."
+    echo "   Please download https://getcomposer.org/composer.phar and move it to."
+    echo "   >>tool<<"
+fi
+
+if [[ -f composer.phar ]];
+then
+    chmod +x composer.phar
+    mv composer.phar "tool/"
+else
+    echo ":: composer.phar not found!"
+    echo "   Please download https://getcomposer.org/composer.phar and move it to."
+    echo "   >>tool<<"
+fi
+##end of downloading composer
+
+##begin of module creation
+if [[ ${INSTALLED_VERSION} -lt 1 ]];
+then
+    echo ":: Creating Application module."
+
+    ./bin/${NAME_OF_ADD_NEW_MODULE_SCRIPT} Application
+
+    cat > module/Application/config/log.config.php <<DELIM
+<?php
+/**
+ * @author ${NAME_OF_THE_CURRENT_SCRIPT}/${CURREMT_VERSION}
+ * @since ${CURRENT_DATE}
+ */
+
+return [
+    'log' => [
+        'ApplicationCoreLogger' => [
+            'writers' => [
+                'log_file_application' => [
+                    'name'      => \Zend\Log\Writer\Stream::class,
+                    'priority'  => \Zend\Log\Logger::ALERT, //will receive the log message as one first
+                    'options'   => [
+                        //'stream'    => 'php://output',
+                        'stream'    => __DIR__ . '/../../../data/log/application.log',
+                        'formatter' => [
+                            'name'      => \Zend\Log\Formatter\Simple::class,
+                            'options'   => [
+                                'dateTimeFormat'    => 'c', //looks like: 2018-09-15T09:45:40+02:00
+                                'format'            => '%timestamp% %priorityName% (%priority%): %message% %extra%' //looks like: 2018-09-15T09:45:40+02:00 DEBUG (7): my debug log message
+                            ]
+                        ],
+                        'filters'   => [
+                            'priority'  => [
+                                'name'      => 'priority',
+                                'options'   => [
+                                    'operator'  => '<=',
+                                    'priority'  => \Zend\Log\Logger::DEBUG  //allows all log level message
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            'processors' => [
+                'requestid' => [
+                    'name' => \Zend\Log\Processor\RequestId::class,
+                ],
+            ]
+        ]
+    ],
+    'service_manager' => [
+        'aliases' => [
+            \Zend\Log\Logger::class => 'ApplicationCoreLogger'
+        ]
+    ]
+];
+DELIM
+fi
+##end of module creation
+
+##begin of dependency installation
+echo ":: Installing dependencies."
+
+if [[ -f tool/composer.phar ]];
+then
+    ./tool/composer.phar selfupdate
+    ./tool/composer.phar install
+else
+    echo ":: No composer.phar found!"
+    echo "   You have to run composer.phar install on your own."
+fi
+
+echo ${CURRENT_VERSION} > "${PATH_TO_THE_VERSION_FILE}"
+
+cd "${CURRENT_WORKING_DIRECTORY}"
+##end of dependency installation

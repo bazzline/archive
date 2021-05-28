@@ -1,0 +1,49 @@
+{
+    "name": "net_bazzline/deployment_journal",
+    "description": "free as in freedom application to maintain a deployment to do journal dependend on your current code branch and environment",
+    "keywords": [
+        "bazzline",
+        "php",
+        "php5",
+        "php56",
+        "php7",
+        "free as in freedom",
+        "reusable",
+        "deployment",
+        "journal",
+        "logbook",
+        "diary",
+        "todo",
+        "environment",
+        "history",
+        "branch",
+        "täptn's logbuch"
+    ],
+    "type": "project",
+    "require": {
+        "ext-json": "*",
+        "net_bazzline/php_component_command": "1.2.2",
+        "php": "^7.0",
+        "ramsey/uuid": "3.7.0",
+        "phpunit/phpunit": "^7.0@dev",
+        "mockery/mockery": "^1.0@dev",
+        "league/flysystem": "1.0.45",
+        "zendframework/zend-log": "^2.10@dev",
+        "zendframework/zend-mvc-console": "^1.2@dev",
+        "rybakit/msgpack": "dev-master"
+    },
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "stev leibelt",
+            "email": "artodeto@bazzline.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Application\\": "module/Application/src",
+            "Net\\Bazzline\\DeploymentJournal\\": "source/"
+        }
+    }
+}

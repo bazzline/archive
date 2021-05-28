@@ -1,0 +1,15 @@
+<?php
+/**
+ * @author create_application.sh/0.0.1
+ * @since 18-09-09
+ */
+
+return [
+    'application' => [
+        'entity'    => [
+            'list_of_affected_environments' => [
+                //array values are the names for that environment
+            ]
+        ]
+    ]
+];

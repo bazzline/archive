@@ -1,0 +1,34 @@
+{
+    "name": "net_bazzline/zf_module_crontab_manager",
+    "description": "free as in freedom free software to keep crontab sections via command line",
+    "type": "library",
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "email": "artodeto@bazzline.net",
+            "homepage": "https://artodeto.bazzline.net",
+            "name": "stev leibelt",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ext-json": "*",
+        "php": "^7.2",
+        "zendframework/zend-log": "^2.10@dev",
+        "zendframework/zend-mvc-console": "^1.2@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Net\\Bazzline\\Zf\\CrontabManaer\\": "source"
+        }
+    },
+    "extra": {
+        "zf": {
+            "module": "Net\\Bazzline\\Zf\\CrontabManager\\Module"
+        }
+    }
+}
