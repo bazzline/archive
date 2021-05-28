@@ -20,3 +20,4 @@ The last place on earth for dead repositories.
     * [zf_console_helper_debian_6_backport](2021/zf_console_helper_debian_6_backport) - archived 20210521
     * [zf_locator_generator_debian_6_backport](2021/zf_locator_generator_debian_6_backport) - archived 20210521
     * [zf_locator_generator_debian_7_backport](2021/zf_locator_generator_debian_7_backport) - archived 20210521
+    * [php_component_cli_readline] - archived 20210528
