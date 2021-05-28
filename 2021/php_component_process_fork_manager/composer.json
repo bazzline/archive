@@ -1,0 +1,52 @@
+{
+    "description": "free as in freedom php component process fork manager for easy up process forking and observing threads",
+    "keywords": [
+        "bazzline",
+        "psr",
+        "psr-4",
+        "php",
+        "multithreading",
+        "thread",
+        "fork",
+        "manager",
+        "thread manager",
+        "fork manager",
+        "process manager",
+        "process fork manager",
+        "lgpl",
+        "free as in freedom"
+    ],
+    "license": "LGPL-3.0",
+    "name": "net_bazzline/php_component_process_fork_manager",
+    "type": "library",
+    "authors": [
+        {
+            "email": "artodeto@bazzline.net",
+            "homepage": "https://artodeto.bazzline.et",
+            "name": "Stev Leibelt",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "net_bazzline/php_component_time_limit_manager": "1.0.*",
+        "net_bazzline/php_component_memory_limit_manager": "1.1.*",
+        "symfony/event-dispatcher": "~2.7||~3.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.9.5",
+        "phpunit/phpunit": "~4.8||~5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Example\\Net\\Bazzline\\Component\\ProcessForkManager\\": "example/",
+            "Net\\Bazzline\\Component\\ProcessForkManager\\": "source/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\Net\\Bazzline\\Component\\ProcessForkManager\\": "test/"
+        }
+    }
+}

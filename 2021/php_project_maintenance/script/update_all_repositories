@@ -1,0 +1,72 @@
+#!/bin/bash
+# @see https://stackoverflow.com/questions/18884992/how-do-i-assign-ls-to-an-array-in-linux-bash
+
+SCRIPT_PATH=$(cd $(dirname "${BASH_SOURCE[0]}"); pwd)
+PATH_TO_CURRENT_DIRECTORY=$(pwd)
+PATH_TO_BINARY=$SCRIPT_PATH'/../bin'
+
+shopt -s nullglob
+DIRECTORIES=(*/)
+shopt -u nullglob
+
+php $PATH_TO_BINARY'/composer.phar' selfupdate
+
+for CURRENT_WORKING_DIRECTORY in ${DIRECTORIES[@]}; do
+    POSSIBLE_REPOSITORY_PATH=$PATH_TO_CURRENT_DIRECTORY'/'$CURRENT_WORKING_DIRECTORY
+
+    if [ -d $POSSIBLE_REPOSITORY_PATH'.git' ]; then
+        echo "$CURRENT_WORKING_DIRECTORY"
+        cd "$POSSIBLE_REPOSITORY_PATH"
+        /bin/env git pull
+        if [ "$?" != "0" ]; then
+            echo -e "\e[41m" #set background to bold red: https://wiki.archlinux.org/index.php/Color_Bash_Prompt
+            echo ''
+            echo 'something went wrong when executing "git pull"'
+            echo -e "\e[0m" #reset font
+            exit 1
+        fi
+        /bin/env git fetch origin
+        if [ "$?" != "0" ]; then
+            echo -e "\e[41m" #set background to bold red: https://wiki.archlinux.org/index.php/Color_Bash_Prompt
+            echo ''
+            echo 'something went wrong when executing "git fetch origin"'
+            echo -e "\e[0m" #reset font
+            exit 1
+        fi
+
+        if [ -f $POSSIBLE_REPOSITORY_PATH'composer.json' ]; then
+            if [ -d $POSSIBLE_REPOSITORY_PATH'vendor' ]; then
+                #we have to remove the vendor since we manipulate the content later on with compify
+                #this fact has to be communicated!
+                /bin/env rm -fr $POSSIBLE_REPOSITORY_PATH'vendor'
+                if [ "$?" != "0" ]; then
+                    echo -e "\e[41m" #set background to bold red: https://wiki.archlinux.org/index.php/Color_Bash_Prompt
+                    echo ''
+                    echo 'something went wrong when executing "rm -fr <path>/vendor"'
+                    echo -e "\e[0m" #reset font
+                    exit 1
+                fi
+            fi
+            /bin/env php $PATH_TO_BINARY'/composer.phar' update
+            if [ "$?" != "0" ]; then
+                echo -e "\e[41m" #set background to bold red: https://wiki.archlinux.org/index.php/Color_Bash_Prompt
+                echo ''
+                echo 'something went wrong when executing "composer update"'
+                echo -e "\e[0m" #reset font
+                exit 1
+            fi
+            if [ -d $POSSIBLE_REPOSITORY_PATH'vendor' ]; then
+                echo 'vendor found'
+                /bin/env php $PATH_TO_BINARY'/compify.phar' crush
+                if [ "$?" != "0" ]; then
+                    echo -e "\e[41m" #set background to bold red: https://wiki.archlinux.org/index.php/Color_Bash_Prompt
+                    echo ''
+                    echo 'something went wrong when executing "compify update"'
+                    echo -e "\e[0m" #reset font
+                    exit 1
+                fi
+            fi
+        fi
+        cd "$PATH_TO_CURRENT_DIRECTORY"
+    fi
+done;

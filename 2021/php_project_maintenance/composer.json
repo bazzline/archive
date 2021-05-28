@@ -1,0 +1,10 @@
+{
+    "require": {
+        "apigen/apigen": " 4.1.*",
+        "sebastian/phpcpd": "2.0.*",
+        "phploc/phploc": "3.0.*",
+        "phpmd/phpmd": " 2.4.*",
+        "phpunit/phpunit": "~4.8||~5.5",
+        "squizlabs/php_codesniffer": "2.6.*"
+    }
+}

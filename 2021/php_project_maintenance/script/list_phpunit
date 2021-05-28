@@ -1,0 +1,6 @@
+#!/bin/bash
+
+find . -maxdepth 2 -name 'composer.json' -type f -print0 | while IFS= read -r -d $'\0' FILE_PATH; do
+    GREP_OUTPUT=$(grep 'phpunit' "$FILE_PATH")
+    echo "$FILE_PATH" "$GREP_OUTPUT"
+done

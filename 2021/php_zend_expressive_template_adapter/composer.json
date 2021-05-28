@@ -1,0 +1,57 @@
+{
+    "name": "net_bazzline/php_zend_expressive_template_adapter",
+    "description": "free as in freedom template engine adapter for php and zend expressive template interface ",
+    "keywords": [
+      "php",
+      "expressive",
+      "template",
+      "middleware",
+      "free as in freedom"
+    ],
+    "type": "library",
+    "minimum-stability": "dev",
+    "require": {
+        "container-interop/container-interop": "^1.1",
+        "net_bazzline/php_component_template": "3.1.*",
+        "php": "^5.5 || ^7.0",
+        "zendframework/zend-expressive-template": "^1.0"
+    },
+    "require-dev": {
+        "mikey179/vfsstream": "1.6.*",
+        "phpunit/phpunit": "~4.8||~5.5",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "suggest": {
+        "aura/di": "3.0.*@beta to make use of Aura.Di dependency injection container",
+        "mouf/pimple-interop": "^1.0 to use Pimple for dependency injection",
+        "zendframework/zend-servicemanager": "^2.5 to use zend-servicemanager for dependency injection"
+    },
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Stev Leibelt",
+            "email": "artodeto@bazzline.net",
+            "homepage": "https://artodeto.bazzline.net",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Net\\Bazzline\\Component\\ZendExpressiveTemplateAdapter\\": "source/"
+        }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Test\\Net\\Bazzline\\Component\\ZendExpressiveTemplateAdapter\\": "test/"
+      }
+    },
+    "scripts": {
+        "check": [
+            "@cs",
+            "@test"
+        ],
+        "cs": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit"
+    }
+}

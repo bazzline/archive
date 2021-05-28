@@ -4,7 +4,6 @@
 ####
 # @todo
 #   * support more than "https://github.com/bazzline"
-#   * order content of readme listed repositories alphabetically
 ####
 # @since: 2021-05-28
 # @author: stev leibelt <artodeto@bazzline.net>
