@@ -14,7 +14,7 @@ bash bin/archive_repository.sh "<string: url to the repository>"
 
 * [2021](2021)
     * [deployment_journal](2021/deployment_journal) - archived 20210528
-    * [php_component_cli_readline](2021/php_component_cli) - archived 20210528
+    * [php_component_cli_readline](2021/php_component_cli_readline) - archived 20210528
     * [php_component_composer_autoload_loader](2021/php_component_composer_autoload_loader) - archived 20210521
     * [php_component_event](2021/php_component_event) - archived 20210528
     * [php_component_event_handler](2021/php_component_event_handler) - archived 20210528
