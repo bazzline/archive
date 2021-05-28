@@ -96,7 +96,7 @@ DELIM
     #list content of path and grep for all with the 2 inside
     for YEAR in $(ls | sort | grep 2);
     do
-        echo "[${YEAR}](${YEAR})" >> "${PATH_TO_THE_README}"
+        echo "* [${YEAR}](${YEAR})" >> "${PATH_TO_THE_README}"
 
         cat "${YEAR}/.repository_file_list" | sort >> "${PATH_TO_THE_README}"
     done

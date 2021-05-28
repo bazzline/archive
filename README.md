@@ -7,12 +7,12 @@ The last place on earth for dead repositories.
 # Howto
 
 ```
-bash bin/archive_repository.sh \"<string: url to the repository>\"
+bash bin/archive_repository.sh "<string: url to the repository>"
 ```
 
 # Years
 
-[2021](2021)
+* [2021](2021)
     * [deployment_journal](https://github.com/bazzline/deployment_journal) - archived 20210528
     * [php_component_cli_readline] - archived 20210528
     * [php_component_composer_autoload_loader](2021/php_component_composer_autoload_loader) - archived 20210521
