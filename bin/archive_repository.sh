@@ -21,6 +21,7 @@ function _main ()
     #eo: input validation
 
     #bo: variables
+    BE_VERBOSE=0
     CURRENT_DATE=$(date +%Y%m%d)
     CURRENT_WORKING_DIRECTORY=$(pwd)
     CURRENT_YEAR=$(date +%Y)
@@ -30,6 +31,7 @@ function _main ()
 
     PATH_TO_THE_PROJECT_ROOT="${PATH_OF_THIS_FILE}/.."
 
+    PATH_TO_THE_README="${PATH_TO_THE_PROJECT_ROOT}/README.md"
     PATH_TO_THE_CURRENT_ARCHIVE="${PATH_TO_THE_PROJECT_ROOT}/${CURRENT_YEAR}"
 
     PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST="${PATH_TO_THE_CURRENT_ARCHIVE}/.repository_file_list"
@@ -38,11 +40,13 @@ function _main ()
     #bo: setup
     if [[ ! -d "${PATH_TO_THE_CURRENT_ARCHIVE}" ]];
     then
+        [[ $BE_VERBOSE -eq 1 ]] && echo ":: Creating path >>${PATH_TO_THE_CURRENT_ARCHIVE}<<."
         mkdir -p "${PATH_TO_THE_CURRENT_ARCHIVE}"
     fi
 
     if [[ ! -f ${PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST} ]];
     then
+        [[ $BE_VERBOSE -eq 1 ]] && echo ":: Creating file >>${PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST}<<."
         touch "${PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST}"
     fi
     #eo: setup
@@ -58,17 +62,22 @@ function _main ()
         return 1
     fi
 
+    [[ $BE_VERBOSE -eq 1 ]] && echo ":: Cloning repository >>${URL_TO_THE_REPOSITORY}<<."
     git clone "${URL_TO_THE_REPOSITORY}"
 
+    [[ $BE_VERBOSE -eq 1 ]] && echo ":: Removing >>.git<< from the cloned repository"
     rm -fr "${NAME_OF_THE_REPOSITORY}/.git"
 
-    echo "  * [${NAME_OF_THE_REPOSITORY}](${URL_TO_THE_REPOSITORY}) - archived ${CURRENT_DATE}" >> "${PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST}"
+    cd "${PATH_TO_THE_PROJECT_ROOT}"
+
+    [[ $BE_VERBOSE -eq 1 ]] && echo ":: Adding path to the repository file list."
+    echo "    * [${NAME_OF_THE_REPOSITORY}](${URL_TO_THE_REPOSITORY}) - archived ${CURRENT_DATE}" >> "${PATH_TO_THE_CURRENT_REPOSITORY_FILE_LIST}"
     ##eo: repository download
 
     ##bo: update readme
-    cd "${PATH_TO_THE_PROJECT_ROOT}"
+    [[ $BE_VERBOSE -eq 1 ]] && echo ":: Updating README.md."
 
-    cat >README.md<DELIM
+    cat > "${PATH_TO_THE_README}" <<DELIM
 # Archive
 
 Free as in freedom archive.
@@ -77,9 +86,9 @@ The last place on earth for dead repositories.
 
 # Howto
 
-```
-bash bin/archive_repository.sh "<string: url to the repository>"
-```
+\`\`\`
+bash bin/archive_repository.sh \"<string: url to the repository>\"
+\`\`\`
 
 # Years
 
@@ -88,9 +97,9 @@ DELIM
     #list content of path and grep for all with the 2 inside
     for YEAR in $(ls | sort | grep 2);
     do
-        echo "[${YEAR}](${YEAR})" >> README.md
+        echo "[${YEAR}](${YEAR})" >> "${PATH_TO_THE_README}"
 
-        cat "${YEAR}/.repository_file_list" | sort >> README.md
+        cat "${YEAR}/.repository_file_list" | sort >> "${PATH_TO_THE_README}"
     done
     ##eo: update readme
 

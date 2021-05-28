@@ -1,0 +1,34 @@
+{
+    "name": "net_bazzline/php_component_generic_agreement",
+    "description": "free as in freedom php component that includes generic agreements in the Net\\Bazzline code base",
+    "keywords": [
+        "bazzline",
+        "psr",
+        "psr-4",
+        "php", 
+        "component", 
+        "reusable", 
+        "free as in freedom", 
+        "generic", 
+        "interface"
+    ],
+    "type": "library",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Stev Leibelt",
+            "email": "artodeto@bazzline.net",
+            "homepage": "https://artodeto.bazzline.net",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Net\\Bazzline\\Component\\GenericAgreement\\": "source/"
+        }
+    }
+}
